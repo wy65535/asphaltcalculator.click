@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asphalt Calculator - Free Asphalt Paving Cost & Material Calculator 2026</title>
+    <meta name="description" content="Free asphalt calculator for driveway, parking lot & road paving. Calculate asphalt tonnage, cost estimate, and material needed. Includes hot mix asphalt & driveway calculator.">
+    <meta name="keywords" content="asphalt calculator, asphalt cost calculator, driveway asphalt calculator, asphalt paving calculator, hot mix asphalt calculator, asphalt tonnage calculator, parking lot asphalt calculator">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://yourdomain.com/">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yourdomain.com/">
+    <meta property="og:title" content="Asphalt Calculator - Free Paving Cost Calculator">
+    <meta property="og:description" content="Calculate asphalt tonnage and cost for your paving project. Free driveway and parking lot calculator.">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Asphalt Calculator - Free Paving Cost Calculator">
+    <meta name="twitter:description" content="Calculate asphalt tonnage and cost for your paving project.">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- Schema.org structured data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Asphalt Calculator",
+        "description": "Free asphalt calculator for calculating paving materials and costs",
+        "url": "https://yourdomain.com/",
+        "applicationCategory": "UtilityApplication",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        }
+    }
+    </script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        
+        nav {
+            background: #34495e;
+            padding: 15px 30px;
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+        
+        nav a:hover {
+            background: rgba(255,255,255,0.1);
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .calculator-section {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .calculator-section h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        input:focus, select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .unit-toggle {
+            display: flex;
+            gap: 10px;
+            margin-top: 5px;
+        }
+        
+        .unit-toggle button {
+            padding: 8px 15px;
+            border: 2px solid #667eea;
+            background: white;
+            color: #667eea;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .unit-toggle button.active {
+            background: #667eea;
+            color: white;
+        }
+        
+        .calculate-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 10px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: 600;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-top: 20px;
+        }
+        
+        .calculate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+        
+        .results {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            padding: 30px;
+            border-radius: 15px;
+            color: white;
+            margin-top: 30px;
+            display: none;
+        }
+        
+        .results.show {
+            display: block;
+            animation: slideIn 0.5s ease;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .result-item {
+            background: rgba(255,255,255,0.2);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .result-item h3 {
+            font-size: 1.1em;
+            margin-bottom: 5px;
+        }
+        
+        .result-item .value {
+            font-size: 2em;
+            font-weight: 700;
+        }
+        
+        .info-section {
+            margin-top: 40px;
+        }
+        
+        .info-section h2 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.8em;
+        }
+        
+        .info-section h3 {
+            color: #34495e;
+            margin-top: 25px;
+            margin-bottom: 10px;
+            font-size: 1.3em;
+        }
+        
+        .info-section p, .info-section ul {
+            margin-bottom: 15px;
+            line-height: 1.8;
+        }
+        
+        .info-section ul {
+            padding-left: 30px;
+        }
+        
+        .info-section li {
+            margin-bottom: 8px;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .card {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .card h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+        
+        footer {
+            background: #2c3e50;
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        footer a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        
+        footer a:hover {
+            text-decoration: underline;
+        }
+        
+        .ad-placeholder {
+            background: #f0f0f0;
+            border: 2px dashed #ccc;
+            padding: 20px;
+            text-align: center;
+            margin: 30px 0;
+            border-radius: 10px;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+        }
+        
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8em;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .calculator-section {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🛣️ Asphalt Calculator</h1>
+            <p>Calculate Asphalt Material & Cost for Your Paving Project</p>
+        </header>
+        
+        <nav>
+            <a href="#calculator">Calculator</a>
+            <a href="#guide">How to Use</a>
+            <a href="#info">Asphalt Info</a>
+            <a href="privacy.html">Privacy Policy</a>
+        </nav>
+        
+        <div class="content">
+            <!-- Ad Placeholder -->
+            <div class="ad-placeholder">
+                <!-- Google AdSense Code Here -->
+                Advertisement Space
+            </div>
+            
+            <div class="calculator-section" id="calculator">
+                <h2>Asphalt Paving Calculator</h2>
+                
+                <div class="form-group">
+                    <label for="projectType">Project Type:</label>
+                    <select id="projectType">
+                        <option value="driveway">Driveway</option>
+                        <option value="parking">Parking Lot</option>
+                        <option value="road">Road</option>
+                        <option value="pathway">Pathway</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="length">Length:</label>
+                    <input type="number" id="length" placeholder="Enter length" value="20" min="0" step="0.1">
+                    <div class="unit-toggle">
+                        <button class="active" onclick="setUnit('length', 'ft')">Feet</button>
+                        <button onclick="setUnit('length', 'm')">Meters</button>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="width">Width:</label>
+                    <input type="number" id="width" placeholder="Enter width" value="12" min="0" step="0.1">
+                    <div class="unit-toggle">
+                        <button class="active" onclick="setUnit('width', 'ft')">Feet</button>
+                        <button onclick="setUnit('width', 'm')">Meters</button>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="thickness">Thickness (inches):</label>
+                    <input type="number" id="thickness" placeholder="Enter thickness" value="3" min="0" step="0.5">
+                    <small style="color: #666; display: block; margin-top: 5px;">Recommended: 2-3 inches for driveways, 3-4 inches for parking lots</small>
+                </div>
+                
+                <div class="form-group">
+                    <label for="costPerTon">Cost per Ton ($):</label>
+                    <input type="number" id="costPerTon" placeholder="Enter cost per ton" value="100" min="0" step="1">
+                    <small style="color: #666; display: block; margin-top: 5px;">Average cost: $85-$150 per ton</small>
+                </div>
+                
+                <button class="calculate-btn" onclick="calculateAsphalt()">Calculate Asphalt Needed</button>
+            </div>
+            
+            <div class="results" id="results">
+                <h2 style="margin-bottom: 20px;">📊 Calculation Results</h2>
+                <div class="result-item">
+                    <h3>Area to be Paved</h3>
+                    <div class="value" id="areaResult">-</div>
+                </div>
+                <div class="result-item">
+                    <h3>Volume of Asphalt</h3>
+                    <div class="value" id="volumeResult">-</div>
+                </div>
+                <div class="result-item">
+                    <h3>Asphalt Weight (Tons)</h3>
+                    <div class="value" id="weightResult">-</div>
+                </div>
+                <div class="result-item">
+                    <h3>Estimated Total Cost</h3>
+                    <div class="value" id="costResult">-</div>
+                </div>
+            </div>
+            
+            <!-- Ad Placeholder -->
+            <div class="ad-placeholder">
+                <!-- Google AdSense Code Here -->
+                Advertisement Space
+            </div>
+            
+            <div class="info-section" id="guide">
+                <h2>How to Use the Asphalt Calculator</h2>
+                <p>Our free asphalt calculator helps you estimate the amount of asphalt material and cost needed for your paving project. Follow these simple steps:</p>
+                
+                <ol style="padding-left: 30px; line-height: 1.8;">
+                    <li><strong>Select Project Type:</strong> Choose whether you're paving a driveway, parking lot, road, or pathway.</li>
+                    <li><strong>Enter Dimensions:</strong> Input the length and width of the area to be paved. You can use feet or meters.</li>
+                    <li><strong>Set Thickness:</strong> Enter the desired asphalt thickness in inches. Standard recommendations:
+                        <ul style="margin-top: 10px;">
+                            <li>Residential driveways: 2-3 inches</li>
+                            <li>Commercial driveways: 3-4 inches</li>
+                            <li>Parking lots: 3-4 inches</li>
+                            <li>Roads: 4-6 inches</li>
+                        </ul>
+                    </li>
+                    <li><strong>Enter Cost per Ton:</strong> Input the current price of asphalt per ton in your area.</li>
+                    <li><strong>Calculate:</strong> Click the calculate button to get instant results.</li>
+                </ol>
+                
+                <h3>Understanding the Results</h3>
+                <p>The calculator provides:</p>
+                <ul>
+                    <li><strong>Area:</strong> Total square footage of the paving surface</li>
+                    <li><strong>Volume:</strong> Cubic yards of asphalt needed</li>
+                    <li><strong>Weight:</strong> Total tons of asphalt required</li>
+                    <li><strong>Cost:</strong> Estimated material cost for your project</li>
+                </ul>
+            </div>
+            
+            <div class="grid">
+                <div class="card">
+                    <h3>🏠 Driveway Asphalt Calculator</h3>
+                    <p>Calculate the exact amount of asphalt needed for your residential or commercial driveway paving project with accurate cost estimates.</p>
+                </div>
+                
+                <div class="card">
+                    <h3>🅿️ Parking Lot Calculator</h3>
+                    <p>Plan your parking lot paving project with precise material calculations and budget planning for commercial applications.</p>
+                </div>
+                
+                <div class="card">
+                    <h3>🔥 Hot Mix Asphalt</h3>
+                    <p>Get accurate calculations for hot mix asphalt (HMA) tonnage and volume requirements for your paving needs.</p>
+                </div>
+                
+                <div class="card">
+                    <h3>💰 Cost Estimator</h3>
+                    <p>Estimate total material costs for your asphalt paving project based on current market prices per ton in your area.</p>
+                </div>
+            </div>
+            
+            <div class="info-section" id="info">
+                <h2>Asphalt Paving Guide & Information</h2>
+                
+                <h3>What is Asphalt?</h3>
+                <p>Asphalt, also known as bitumen or blacktop, is a popular paving material made from a mixture of aggregates, binder, and filler. It's widely used for roads, driveways, parking lots, and pathways due to its durability, cost-effectiveness, and smooth finish.</p>
+                
+                <h3>Types of Asphalt Paving</h3>
+                <ul>
+                    <li><strong>Hot Mix Asphalt (HMA):</strong> The most common type, heated to 300-350°F for application</li>
+                    <li><strong>Warm Mix Asphalt (WMA):</strong> Applied at lower temperatures, more environmentally friendly</li>
+                    <li><strong>Cold Mix Asphalt:</strong> Used primarily for patching and repairs</li>
+                    <li><strong>Porous Asphalt:</strong> Allows water drainage, ideal for eco-friendly projects</li>
+                </ul>
+                
+                <h3>Asphalt Paving Cost Factors</h3>
+                <p>Several factors affect the total cost of asphalt paving:</p>
+                <ul>
+                    <li><strong>Material Quality:</strong> Higher grade asphalt costs more but lasts longer</li>
+                    <li><strong>Project Size:</strong> Larger projects typically have lower per-unit costs</li>
+                    <li><strong>Thickness:</strong> Thicker layers require more material but provide better durability</li>
+                    <li><strong>Location:</strong> Regional prices vary based on availability and transportation costs</li>
+                    <li><strong>Site Preparation:</strong> Excavation and base preparation add to total costs</li>
+                    <li><strong>Labor Costs:</strong> Professional installation typically costs $3-$5 per square foot</li>
+                </ul>
+                
+                <h3>Average Asphalt Costs (2026)</h3>
+                <ul>
+                    <li>Asphalt material: $85-$150 per ton</li>
+                    <li>Installation (material + labor): $3-$7 per square foot</li>
+                    <li>Driveway paving: $2,500-$8,000 (average residential)</li>
+                    <li>Parking lot paving: $1.50-$4 per square foot</li>
+                </ul>
+                
+                <h3>How Much Does 1 Ton of Asphalt Cover?</h3>
+                <p>One ton of asphalt covers approximately:</p>
+                <ul>
+                    <li>80 square feet at 3 inches thick</li>
+                    <li>60 square feet at 4 inches thick</li>
+                    <li>120 square feet at 2 inches thick</li>
+                </ul>
+                <p><strong>Note:</strong> Asphalt typically weighs 145 pounds per cubic foot (2,350 kg/m³).</p>
+                
+                <h3>Asphalt Thickness Recommendations</h3>
+                <ul>
+                    <li><strong>Residential Driveways:</strong> 2-3 inches (light vehicle traffic)</li>
+                    <li><strong>Commercial Driveways:</strong> 3-4 inches (heavier vehicles)</li>
+                    <li><strong>Parking Lots:</strong> 3-4 inches (standard cars) to 5-6 inches (heavy trucks)</li>
+                    <li><strong>Roads:</strong> 4-6 inches depending on traffic volume</li>
+                    <li><strong>Pathways/Walkways:</strong> 2-3 inches (pedestrian only)</li>
+                </ul>
+                
+                <h3>Benefits of Asphalt Paving</h3>
+                <ul>
+                    <li>✅ Cost-effective compared to concrete</li>
+                    <li>✅ Quick installation and curing time</li>
+                    <li>✅ Smooth, attractive finish</li>
+                    <li>✅ Easy to repair and maintain</li>
+                    <li>✅ Excellent traction and safety</li>
+                    <li>✅ 100% recyclable material</li>
+                    <li>✅ Flexible in cold weather (less cracking)</li>
+                    <li>✅ Long lifespan (15-30 years with proper maintenance)</li>
+                </ul>
+                
+                <h3>Asphalt Maintenance Tips</h3>
+                <ul>
+                    <li>Seal coat every 2-3 years to protect the surface</li>
+                    <li>Fill cracks promptly to prevent water damage</li>
+                    <li>Clean regularly to remove debris and prevent staining</li>
+                    <li>Avoid heavy equipment or vehicles when possible</li>
+                    <li>Ensure proper drainage to prevent water pooling</li>
+                    <li>Repair potholes immediately to prevent expansion</li>
+                </ul>
+                
+                <h3>Frequently Asked Questions</h3>
+                
+                <h4>How long does asphalt paving last?</h4>
+                <p>With proper maintenance, asphalt paving typically lasts 15-30 years. Regular seal coating and timely repairs can extend its lifespan significantly.</p>
+                
+                <h4>What's the difference between asphalt and concrete?</h4>
+                <p>Asphalt is more flexible, cheaper, and quicker to install than concrete. It's better suited for cold climates as it's less prone to cracking. Concrete is more durable in hot climates and has a longer lifespan but costs more upfront.</p>
+                
+                <h4>When is the best time to pave with asphalt?</h4>
+                <p>Late spring through early fall (when temperatures are consistently above 50°F) is ideal for asphalt paving. Warm weather ensures proper curing and adhesion.</p>
+                
+                <h4>Can I pave over existing asphalt?</h4>
+                <p>Yes, if the existing asphalt is in good condition with minimal damage. This is called an asphalt overlay and can save costs compared to complete removal and replacement.</p>
+                
+                <h4>How thick should my asphalt driveway be?</h4>
+                <p>For residential driveways with light vehicle traffic, 2-3 inches is sufficient. For heavier vehicles or commercial use, 3-4 inches is recommended.</p>
+            </div>
+            
+            <!-- Ad Placeholder -->
+            <div class="ad-placeholder">
+                <!-- Google AdSense Code Here -->
+                Advertisement Space
+            </div>
+        </div>
+        
+        <footer>
+            <p>&copy; 2026 Asphalt Calculator. All rights reserved.</p>
+            <p><a href="privacy.html">Privacy Policy</a> | <a href="sitemap.xml">Sitemap</a></p>
+            <p>Free asphalt paving calculator for estimating material costs and tonnage</p>
+        </footer>
+    </div>
+    
+    <script>
+        let units = {
+            length: 'ft',
+            width: 'ft'
+        };
+        
+        function setUnit(dimension, unit) {
+            units[dimension] = unit;
+            
+            // Update button states
+            const buttons = event.target.parentElement.querySelectorAll('button');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+        
+        function calculateAsphalt() {
+            // Get input values
+            const length = parseFloat(document.getElementById('length').value);
+            const width = parseFloat(document.getElementById('width').value);
+            const thickness = parseFloat(document.getElementById('thickness').value);
+            const costPerTon = parseFloat(document.getElementById('costPerTon').value);
+            
+            // Validate inputs
+            if (!length || !width || !thickness || length <= 0 || width <= 0 || thickness <= 0) {
+                alert('Please enter valid positive numbers for all dimensions.');
+                return;
+            }
+            
+            // Convert to feet if needed
+            let lengthFt = units.length === 'm' ? length * 3.28084 : length;
+            let widthFt = units.width === 'm' ? width * 3.28084 : width;
+            
+            // Calculate area in square feet
+            const areaSqFt = lengthFt * widthFt;
+            
+            // Calculate volume in cubic feet
+            const thicknessFt = thickness / 12; // Convert inches to feet
+            const volumeCuFt = areaSqFt * thicknessFt;
+            
+            // Convert to cubic yards
+            const volumeCuYd = volumeCuFt / 27;
+            
+            // Calculate weight in tons (asphalt weighs approximately 145 lbs per cubic foot)
+            const weightLbs = volumeCuFt * 145;
+            const weightTons = weightLbs / 2000;
+            
+            // Calculate cost
+            const totalCost = weightTons * costPerTon;
+            
+            // Display results
+            document.getElementById('areaResult').textContent = areaSqFt.toFixed(2) + ' sq ft';
+            document.getElementById('volumeResult').textContent = volumeCuYd.toFixed(2) + ' cubic yards';
+            document.getElementById('weightResult').textContent = weightTons.toFixed(2) + ' tons';
+            document.getElementById('costResult').textContent = '$' + totalCost.toFixed(2);
+            
+            // Show results section
+            document.getElementById('results').classList.add('show');
+            
+            // Scroll to results
+            document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+        
+        // Add enter key support
+        document.querySelectorAll('input').forEach(input => {
+            input.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    calculateAsphalt();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
